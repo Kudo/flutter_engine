@@ -138,12 +138,12 @@ source_set("txt") {
 
   public_deps = [
     "//flutter/fml",
+    "//skia",
     "//third_party/harfbuzz",
     "//third_party/icu",
-    "//third_party/skia",
   ]
 
-  deps = [ "//third_party/skia" ]
+  deps = [ "//skia" ]
 
   if (flutter_use_fontconfig) {
     deps += [ "//third_party/fontconfig" ]
@@ -174,12 +174,16 @@ source_set("txt") {
   } else {
     sources += [ "src/txt/platform.cc" ]
   }
+
+  cflags_cc = [
+    "-Wno-extra-semi",
+  ]
 }
 
 if (enable_unittests) {
   txt_common_executable_deps = [
     "//flutter/fml",  # For ICU initialization.
-    "//third_party/dart/runtime:libdart_jit",  # For logging.
+    # "//third_party/dart/runtime:libdart_jit",  # For logging.
   ]
 
   test_fixtures("txt_fixtures") {
@@ -258,35 +262,35 @@ if (enable_unittests) {
     deps = [
       ":txt",
       "//flutter/fml",
-      "//third_party/skia",
+      "//skia",
     ]
   }
 
-  executable("txt_benchmarks") {
-    testonly = true
-
-    sources = [
-      "benchmarks/paint_record_benchmarks.cc",
-      "benchmarks/paragraph_benchmarks.cc",
-      "benchmarks/paragraph_builder_benchmarks.cc",
-      "benchmarks/styled_runs_benchmarks.cc",
-      "benchmarks/txt_run_all_benchmarks.cc",
-    ]
-
-    deps = [
-             ":txt",
-             ":txt_fixtures",
-             ":txt_test_utils",
-             "//flutter/testing:testing_lib",
-             "//third_party/benchmark",
-           ] + txt_common_executable_deps
-
-    if (flutter_enable_skshaper) {
-      sources += [ "benchmarks/skparagraph_benchmarks.cc" ]
-
-      deps += [ "//third_party/skia/modules/skparagraph" ]
-    }
-  }
+  # executable("txt_benchmarks") {
+  #   testonly = true
+  #
+  #   sources = [
+  #     "benchmarks/paint_record_benchmarks.cc",
+  #     "benchmarks/paragraph_benchmarks.cc",
+  #     "benchmarks/paragraph_builder_benchmarks.cc",
+  #     "benchmarks/styled_runs_benchmarks.cc",
+  #     "benchmarks/txt_run_all_benchmarks.cc",
+  #   ]
+  #
+  #   deps = [
+  #            ":txt",
+  #            ":txt_fixtures",
+  #            ":txt_test_utils",
+  #            "//flutter/testing:testing_lib",
+  #            "//third_party/benchmark",
+  #          ] + txt_common_executable_deps
+  #
+  #   if (flutter_enable_skshaper) {
+  #     sources += [ "benchmarks/skparagraph_benchmarks.cc" ]
+  #
+  #     deps += [ "//third_party/skia/modules/skparagraph" ]
+  #   }
+  # }
 
   executable("txt_unittests") {
     testonly = true

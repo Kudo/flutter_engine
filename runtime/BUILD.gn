@@ -10,7 +10,7 @@ source_set("test_font") {
     "test_font_data.cc",
     "test_font_data.h",
   ]
-  deps = [ "//third_party/skia" ]
+  deps = [ "//skia" ]
   public_configs = [ "//flutter:config" ]
   defines = []
   if (flutter_runtime_mode == "debug" || current_toolchain == host_toolchain) {
@@ -18,20 +18,6 @@ source_set("test_font") {
     # on the device (in profile and release modes). We only add the same on the
     # host test shells and the debug device shell.
     defines += [ "EMBED_TEST_FONT_DATA=1" ]
-  }
-}
-
-# Picks the libdart implementation based on the Flutter runtime mode.
-group("libdart") {
-  public_deps = []
-
-  if (flutter_runtime_mode == "profile" || flutter_runtime_mode == "release") {
-    public_deps += [ "//third_party/dart/runtime:libdart_precompiled_runtime" ]
-  } else {
-    public_deps += [
-      "//flutter/lib/snapshot",
-      "//third_party/dart/runtime:libdart_jit",
-    ]
   }
 }
 
@@ -81,54 +67,10 @@ source_set("runtime") {
     "//flutter/common",
     "//flutter/flow",
     "//flutter/fml",
-    "//flutter/lib/io",
+    # "//flutter/lib/io",
     "//flutter/lib/ui",
-    "//flutter/third_party/tonic",
+    # "//flutter/third_party/tonic",
     "//flutter/third_party/txt",
-    "//third_party/dart/runtime:dart_api",
-    "//third_party/dart/runtime/bin:dart_io_api",
-    "//third_party/skia",
+    "//skia",
   ]
-
-  if (flutter_runtime_mode != "release" && !is_fuchsia) {
-    # Only link in Observatory in non-release modes on non-Fuchsia. Fuchsia
-    # instead puts Observatory into the runner's package.
-    deps += [
-      "//third_party/dart/runtime/observatory:embedded_observatory_archive",
-    ]
-  }
-}
-
-if (enable_unittests) {
-  test_fixtures("runtime_fixtures") {
-    dart_main = "fixtures/runtime_test.dart"
-  }
-
-  executable("runtime_unittests") {
-    testonly = true
-
-    sources = [
-      "dart_isolate_unittests.cc",
-      "dart_lifecycle_unittests.cc",
-      "dart_service_isolate_unittests.cc",
-      "dart_vm_unittests.cc",
-    ]
-
-    public_configs = [ "//flutter:export_dynamic_symbols" ]
-
-    public_deps = [
-      ":libdart",
-      ":runtime",
-      ":runtime_fixtures",
-      "//flutter/common",
-      "//flutter/fml",
-      "//flutter/lib/snapshot",
-      "//flutter/testing",
-      "//flutter/testing:dart",
-      "//flutter/testing:fixture_test",
-      "//flutter/third_party/tonic",
-      "//third_party/dart/runtime/bin:elf_loader",
-      "//third_party/skia",
-    ]
-  }
 }

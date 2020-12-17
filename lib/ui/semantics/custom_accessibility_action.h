@@ -5,10 +5,6 @@
 #ifndef FLUTTER_LIB_UI_SEMANTICS_CUSTOM_ACCESSIBILITY_ACTION_H_
 #define FLUTTER_LIB_UI_SEMANTICS_CUSTOM_ACCESSIBILITY_ACTION_H_
 
-#include "third_party/tonic/dart_library_natives.h"
-#include "third_party/tonic/dart_wrappable.h"
-#include "third_party/tonic/typed_data/typed_list.h"
-
 namespace flutter {
 
 /// A custom accessibility action is used to indicate additional semantics

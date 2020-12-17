@@ -66,8 +66,8 @@ source_set("common") {
     "canvas_spy.h",
     "engine.cc",
     "engine.h",
-    "isolate_configuration.cc",
-    "isolate_configuration.h",
+    # "isolate_configuration.cc",
+    # "isolate_configuration.h",
     "persistent_cache.cc",
     "persistent_cache.h",
     "pipeline.cc",
@@ -101,8 +101,7 @@ source_set("common") {
   public_configs = [ "//flutter:config" ]
 
   public_deps = [
-    "//flutter/shell/version",
-    "//flutter/third_party/tonic",
+    # "//flutter/shell/version",
     "//flutter/third_party/txt",
     "//third_party/rapidjson",
   ]
@@ -113,10 +112,14 @@ source_set("common") {
     "//flutter/flow",
     "//flutter/fml",
     "//flutter/lib/ui",
-    "//flutter/runtime",
+    # "//flutter/runtime",
     "//flutter/shell/profiling",
-    "//third_party/dart/runtime:dart_api",
-    "//third_party/skia",
+    "//skia",
+  ]
+
+  configs -= [ "//build/config/clang:find_bad_constructs" ]
+  cflags_cc = [
+    "-Wno-extra-semi",
   ]
 }
 
@@ -132,8 +135,7 @@ template("shell_host_executable") {
 
     deps += [
       ":common",
-      "//flutter/lib/snapshot",
-      "//flutter/runtime:libdart",
+      # "//flutter/runtime:libdart",
     ]
 
     public_configs = [ "//flutter:export_dynamic_symbols" ]
@@ -163,23 +165,16 @@ if (enable_unittests) {
     enable_metal = test_enable_metal
   }
 
-  test_fixtures("shell_unittests_fixtures") {
-    dart_main = "fixtures/shell_test.dart"
-
-    fixtures = [ "fixtures/shelltest_screenshot.png" ]
-  }
-
-  shell_host_executable("shell_benchmarks") {
-    sources = [ "shell_benchmarks.cc" ]
-
-    deps = [
-      ":shell_unittests_fixtures",
-      "//flutter/benchmarking",
-      "//flutter/flow",
-      "//flutter/testing:dart",
-      "//flutter/testing:testing_lib",
-    ]
-  }
+  # shell_host_executable("shell_benchmarks") {
+  #   sources = [ "shell_benchmarks.cc" ]
+  #
+  #   deps = [
+  #     "//flutter/benchmarking",
+  #     "//flutter/flow",
+  #     "//flutter/testing:dart",
+  #     "//flutter/testing:testing_lib",
+  #   ]
+  # }
 
   source_set("shell_test_fixture_sources") {
     testonly = true
@@ -197,8 +192,7 @@ if (enable_unittests) {
 
     public_deps = [
       "//flutter/flow",
-      "//flutter/fml/dart",
-      "//flutter/runtime",
+      # "//flutter/runtime",
       "//flutter/shell/common",
       "//flutter/testing",
     ]
@@ -207,11 +201,10 @@ if (enable_unittests) {
       ":shell_unittests_gpu_configuration",
       "//flutter/assets",
       "//flutter/common",
-      "//flutter/lib/ui",
-      "//flutter/testing:dart",
+      # "//flutter/lib/ui",
       "//flutter/testing:fixture_test",
       "//third_party/rapidjson",
-      "//third_party/skia",
+      "//skia",
     ]
 
     public_configs = []
@@ -226,7 +219,7 @@ if (enable_unittests) {
 
         public_configs += [ ":test_enable_gl_config" ]
 
-        public_deps += [ "//flutter/testing:opengl" ]
+        # public_deps += [ "//flutter/testing:opengl" ]
       }
     }
 
@@ -258,9 +251,8 @@ if (enable_unittests) {
 
     deps = [
       ":shell_test_fixture_sources",
-      ":shell_unittests_fixtures",
       "//flutter/assets",
-      "//flutter/shell/version",
+      # "//flutter/shell/version",
       "//third_party/googletest:gmock",
     ]
   }

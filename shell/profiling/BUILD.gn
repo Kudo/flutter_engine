@@ -16,4 +16,6 @@ source_set("profiling") {
   ]
 
   deps = _profiler_deps
+
+  configs -= [ "//build/config/clang:find_bad_constructs" ]
 }

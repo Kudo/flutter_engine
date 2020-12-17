@@ -98,17 +98,21 @@ source_set("fml") {
   public_deps = []
 
   deps = [
-    "//third_party/dart/runtime:dart_api",
-
     # These need to be in sync with the Fuchsia buildroot.
     "//third_party/icu",
   ]
 
   configs += [ "//third_party/icu:icu_config" ]
 
+  configs -= [ "//build/config/clang:find_bad_constructs" ]
+
   public_configs = [
     "//flutter:config",
     "//flutter/common:flutter_config",
+  ]
+
+  cflags_cc = [
+    "-Wno-c++98-compat-extra-semi",
   ]
 
   libs = []
@@ -227,17 +231,17 @@ if (enable_unittests) {
     fixtures = []
   }
 
-  executable("fml_benchmarks") {
-    testonly = true
+  # executable("fml_benchmarks") {
+  #   testonly = true
 
-    sources = [ "message_loop_task_queues_benchmark.cc" ]
+  #   sources = [ "message_loop_task_queues_benchmark.cc" ]
 
-    deps = [
-      "//flutter/benchmarking",
-      "//flutter/fml",
-      "//flutter/runtime:libdart",
-    ]
-  }
+  #   deps = [
+  #     "//flutter/benchmarking",
+  #     "//flutter/fml",
+  #     # "//flutter/runtime:libdart",
+  #   ]
+  # }
 
   executable("fml_unittests") {
     testonly = true
@@ -279,8 +283,8 @@ if (enable_unittests) {
     deps = [
       ":fml_fixtures",
       "//flutter/fml",
-      "//flutter/fml/dart",
-      "//flutter/runtime:libdart",
+      # "//flutter/fml/dart",
+      # "//flutter/runtime:libdart",
       "//flutter/testing",
     ]
 

@@ -1,0 +1,5 @@
+source_set("dart_adapter") {
+  sources = [
+    "dart_api.h",
+  ]
+}

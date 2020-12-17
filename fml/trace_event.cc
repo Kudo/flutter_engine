@@ -296,14 +296,12 @@ void TraceTimelineEvent(TraceArg category_group,
                         TraceArg name,
                         int64_t timestamp_micros,
                         TraceIDArg identifier,
-                        Dart_Timeline_Event_Type type,
                         const std::vector<const char*>& c_names,
                         const std::vector<std::string>& values) {}
 
 void TraceTimelineEvent(TraceArg category_group,
                         TraceArg name,
                         TraceIDArg identifier,
-                        Dart_Timeline_Event_Type type,
                         const std::vector<const char*>& c_names,
                         const std::vector<std::string>& values) {}
 

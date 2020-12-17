@@ -43,13 +43,8 @@
 
 #include "flutter/fml/macros.h"
 #include "flutter/fml/time/time_point.h"
-#include "third_party/dart/runtime/include/dart_tools_api.h"
 
-#if (FLUTTER_RELEASE && !defined(OS_FUCHSIA))
 #define FLUTTER_TIMELINE_ENABLED 0
-#else
-#define FLUTTER_TIMELINE_ENABLED 1
-#endif
 
 #if !defined(OS_FUCHSIA)
 #ifndef TRACE_EVENT_HIDE_MACROS
@@ -136,14 +131,12 @@ void TraceTimelineEvent(TraceArg category_group,
                         TraceArg name,
                         int64_t timestamp_micros,
                         TraceIDArg id,
-                        Dart_Timeline_Event_Type type,
                         const std::vector<const char*>& names,
                         const std::vector<std::string>& values);
 
 void TraceTimelineEvent(TraceArg category_group,
                         TraceArg name,
                         TraceIDArg id,
-                        Dart_Timeline_Event_Type type,
                         const std::vector<const char*>& names,
                         const std::vector<std::string>& values);
 

@@ -18,7 +18,7 @@ declare_args() {
   flutter_enable_skshaper = false
 
   # Whether to use the legacy embedder when building for Fuchsia.
-  flutter_enable_legacy_fuchsia_embedder = true
+  flutter_enable_legacy_fuchsia_embedder = false
 }
 
 # feature_defines_list ---------------------------------------------------------

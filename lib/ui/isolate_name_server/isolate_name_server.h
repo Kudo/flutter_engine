@@ -9,8 +9,8 @@
 #include <mutex>
 #include <string>
 
+#include "dart_adapter/dart_api.h"
 #include "flutter/fml/macros.h"
-#include "third_party/dart/runtime/include/dart_api.h"
 
 namespace flutter {
 

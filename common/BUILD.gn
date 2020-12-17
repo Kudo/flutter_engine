@@ -18,6 +18,8 @@ source_set("common") {
 
   deps = [ "//flutter/fml" ]
 
+  configs -= [ "//build/config/clang:find_bad_constructs" ]
+
   public_configs = [
     ":flutter_config",
     "//flutter:config",

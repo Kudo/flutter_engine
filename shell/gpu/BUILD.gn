@@ -10,7 +10,7 @@ gpu_common_deps = [
   "//flutter/flow",
   "//flutter/fml",
   "//flutter/shell/common",
-  "//third_party/skia",
+  "//skia",
 ]
 
 source_set("gpu_surface_software") {
